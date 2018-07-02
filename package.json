@@ -1,0 +1,28 @@
+{
+  "name": "deecra2",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/makobasuri/deecra2.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/makobasuri/deecra2/issues"
+  },
+  "homepage": "https://github.com/makobasuri/deecra2#readme",
+  "dependencies": {
+    "express": "^4.16.3",
+    "phaser": "^3.10.1",
+    "socket.io": "^2.1.1"
+  },
+  "devDependencies": {
+    "chokidar": "^2.0.4"
+  }
+}
