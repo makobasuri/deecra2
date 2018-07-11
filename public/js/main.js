@@ -1,30 +1,37 @@
+import Phaser from 'phaser'
 
 const preload = function preload() {
-	this.load.setBaseURL('http://labs.phaser.io');
-
-	this.load.image('sky', 'assets/skies/space3.png');
-	this.load.image('logo', 'assets/sprites/phaser3-logo.png');
-	this.load.image('red', 'assets/particles/red.png');
+	// this.load.setBaseURL('http://labs.phaser.io');
+	this.load.tilemapTiledJSON('tiledmap', '/public/maps/tiledmap.json');
+	this.load.image('tileset', '/public/tiles/DungeonCrawl_ProjectUtumnoTileset.png');
+	this.load.image('char1tileset', '/public/tiles/characters/steampunk_f10.png');
 }
 
 const create = function create() {
-	this.add.image(400, 300, 'sky');
+	const map = this.add.tilemap('tiledmap');
+	map.addTilesetImage('tileset', 'tiledmap');
 
-	var particles = this.add.particles('red');
+	const layer = map.createLayer('ground');
+	layer.resizeWorld();
+	// layer.wrap = true;
 
-	var emitter = particles.createEmitter({
-		speed: 100,
-		scale: { start: 1, end: 0 },
-		blendMode: 'ADD'
-	});
+	this.cursors = this.input.keyboard.createCursorKeys();
+}
 
-	var logo = this.physics.add.image(400, 100, 'logo');
+const update = function update() {
+	if (this.cursors.left.isDown) {
+		this.camera.x -= 8;
+	} else if (this.cursors.right.isDown) {
+		this.camera.x += 8;
+	}
 
-	logo.setVelocity(100, 200);
-	logo.setBounce(1, 1);
-	logo.setCollideWorldBounds(true);
+	if (this.cursors.up.isDown) {
+		this.camera.y -= 8;
+	} else if (this.cursors.down.isDown) {
+		this.camera.y += 8;
+	}
 
-	emitter.startFollow(logo);
+	console.log(this.camera.x, this.camera.y)
 }
 
 const config = {
@@ -39,12 +46,12 @@ const config = {
 	},
 	scene: {
 		preload: preload,
-		create: create
+		create: create,
+		update: update
 	}
 };
 
 
 const game = new Phaser.Game(config)
-
 
 console.log(game)
