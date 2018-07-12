@@ -1,57 +1,28 @@
-import Phaser from 'phaser'
+import 'phaser';
 
-const preload = function preload() {
-	// this.load.setBaseURL('http://labs.phaser.io');
-	this.load.tilemapTiledJSON('tiledmap', '/public/maps/tiledmap.json');
-	this.load.image('tileset', '/public/tiles/DungeonCrawl_ProjectUtumnoTileset.png');
-	this.load.image('char1tileset', '/public/tiles/characters/steampunk_f10.png');
-}
-
-const create = function create() {
-	const map = this.add.tilemap('tiledmap');
-	map.addTilesetImage('tileset', 'tiledmap');
-
-	const layer = map.createLayer('ground');
-	layer.resizeWorld();
-	// layer.wrap = true;
-
-	this.cursors = this.input.keyboard.createCursorKeys();
-}
-
-const update = function update() {
-	if (this.cursors.left.isDown) {
-		this.camera.x -= 8;
-	} else if (this.cursors.right.isDown) {
-		this.camera.x += 8;
-	}
-
-	if (this.cursors.up.isDown) {
-		this.camera.y -= 8;
-	} else if (this.cursors.down.isDown) {
-		this.camera.y += 8;
-	}
-
-	console.log(this.camera.x, this.camera.y)
-}
-
-const config = {
-	type: Phaser.AUTO,
-	width: 800,
-	height: 600,
-	physics: {
-		default: 'arcade',
-		arcade: {
-			gravity: { y: 200 }
-		}
-	},
-	scene: {
-		preload: preload,
-		create: create,
-		update: update
-	}
+var config = {
+    type: Phaser.AUTO,
+    parent: 'phaser-example',
+    width: 800,
+    height: 600,
+    scene: {
+        preload: preload,
+        create: create
+    }
 };
 
+var game = new Phaser.Game(config);
 
-const game = new Phaser.Game(config)
+function preload ()
+{
+    this.load.tilemapTiledJSON('mymap', '../assets/mymap.json')
+    this.load.image('tiles', '../assets/DungeonCrawl_ProjectUtumnoTileset.png')
+}
 
-console.log(game)
+function create ()
+{
+    var map = this.make.tilemap({ key: 'mymap' });
+    var tiles = map.addTilesetImage('Utumno', 'tiles');
+
+    const layer = map.createStaticLayer('Tile Layer 1', tiles, 0, 0)
+}
