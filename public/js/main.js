@@ -15,8 +15,8 @@ var game = new Phaser.Game(config);
 
 function preload ()
 {
-    this.load.tilemapTiledJSON('mymap', '../assets/mymap.json')
-    this.load.image('tiles', '../assets/DungeonCrawl_ProjectUtumnoTileset.png')
+    this.load.tilemapTiledJSON('mymap', '/public/assets/mymap.json')
+    this.load.image('tiles', '/public/assets/DungeonCrawl_ProjectUtumnoTileset.png')
 }
 
 function create ()
@@ -24,5 +24,5 @@ function create ()
     var map = this.make.tilemap({ key: 'mymap' });
     var tiles = map.addTilesetImage('Utumno', 'tiles');
 
-    const layer = map.createStaticLayer('Tile Layer 1', tiles, 0, 0)
+	const layer = map.createStaticLayer('Tile Layer 1', tiles, 0, 0)
 }
